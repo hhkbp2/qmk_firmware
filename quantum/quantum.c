@@ -322,7 +322,7 @@ bool process_record_quantum(keyrecord_t *record) {
     }
     return false;
   #endif
-  #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+  #if defined(RGBLIGHT_ENABLE)
   case RGB_TOG:
     // Split keyboards need to trigger on key-up for edge-case issue
     #ifndef SPLIT_KEYBOARD
@@ -546,7 +546,51 @@ bool process_record_quantum(keyrecord_t *record) {
     }
   #endif
     return false;
-  #endif // defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+  #endif // defined(RGBLIGHT_ENABLE)
+  #if defined(RGB_MATRIX_ENABLE)
+	case RGB_MATRIX_TOG:
+	  // Split keyboards need to trigger on key-up for edge-case issue
+	  #ifndef SPLIT_KEYBOARD
+	  if (record->event.pressed) {
+	  #else
+	  if (!record->event.pressed) {
+	  #endif
+	    rgb_matrix_toggle();
+	    #ifdef SPLIT_KEYBOARD
+	        RGB_DIRTY = true;
+	    #endif
+	  }
+	  return false;
+	case RGB_MATRIX_MODE_FORWARD:
+	  if (record->event.pressed) {
+	    uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+	    if(shifted) {
+	      rgb_matrix_step_reverse();
+	    }
+	    else {
+	      rgb_matrix_step();
+	    }
+	    #ifdef SPLIT_KEYBOARD
+	        RGB_DIRTY = true;
+	    #endif
+	  }
+	  return false;
+	case RGB_MATRIX_MODE_REVERSE:
+	  if (record->event.pressed) {
+	    uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+	    if(shifted) {
+	      rgb_matrix_step();
+	    }
+	    else {
+	      rgb_matrix_step_reverse();
+	    }
+	    #ifdef SPLIT_KEYBOARD
+	        RGB_DIRTY = true;
+	    #endif
+	  }
+	  return false;
+	// TODO: Add more handling for other RGB Matrix keycodes
+  #endif // defined(RGB_MATRIX_ENABLE)
     #ifdef PROTOCOL_LUFA
     case OUT_AUTO:
       if (record->event.pressed) {

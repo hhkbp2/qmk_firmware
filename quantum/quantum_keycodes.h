@@ -421,6 +421,12 @@ enum quantum_keycodes {
     RGB_MODE_XMAS,
     RGB_MODE_GRADIENT,
     RGB_MODE_RGBTEST,
+		
+		// RGM Matrix functionality
+		RGB_MATRIX_TOG,
+		RGB_MATRIX_MODE_FORWARD,
+		RGB_MATRIX_MODE_REVERSE,
+		// TODO: Add more keycodes for RGB Matrix
 
     // Left shift, open paren
     KC_LSPO,
@@ -599,6 +605,10 @@ enum quantum_keycodes {
 #define RGB_M_X RGB_MODE_XMAS
 #define RGB_M_G RGB_MODE_GRADIENT
 #define RGB_M_T RGB_MODE_RGBTEST
+
+#define RGBM_TOG RGB_MATRIX_TOG
+#define RGBM_MOD RGB_MATRIX_MODE_FORWARD
+#define RGBM_RMOD RGB_MATRIX_MODE_REVERSE
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
 #define LT(layer, kc) (QK_LAYER_TAP | ((layer & 0xF) << 8) | ((kc) & 0xFF))

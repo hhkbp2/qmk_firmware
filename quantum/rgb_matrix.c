@@ -34,12 +34,12 @@ rgb_config_t rgb_matrix_config;
     #define MIN(a,b) ((a) < (b)? (a): (b))
 #endif
 
-#ifndef RGB_DISABLE_AFTER_TIMEOUT
-    #define RGB_DISABLE_AFTER_TIMEOUT 0
+#ifndef RGB_MATRIX_DISABLE_AFTER_TIMEOUT
+    #define RGB_MATRIX_DISABLE_AFTER_TIMEOUT 0
 #endif
 
-#ifndef RGB_DISABLE_WHEN_USB_SUSPENDED
-    #define RGB_DISABLE_WHEN_USB_SUSPENDED false
+#ifndef RGB_MATRIX_DISABLE_WHEN_USB_SUSPENDED
+    #define RGB_MATRIX_DISABLE_WHEN_USB_SUSPENDED false
 #endif
 
 #ifndef EECONFIG_RGB_MATRIX
@@ -50,9 +50,9 @@ rgb_config_t rgb_matrix_config;
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
 #endif
 
-#ifndef RGB_DIGITAL_RAIN_DROPS
+#ifndef RGB_MATRIX_DIGITAL_RAIN_DROPS
     // lower the number for denser effect/wider keyboard
-    #define RGB_DIGITAL_RAIN_DROPS 24
+    #define RGB_MATRIX_DIGITAL_RAIN_DROPS 24
 #endif
 
 #if !defined(DISABLE_RGB_MATRIX_RAINDROPS) || !defined(DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS) || !defined(DISABLE_RGB_MATRIX_DIGITAL_RAIN)
@@ -494,7 +494,7 @@ void rgb_matrix_digital_rain( const bool initialize ) {
     }
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-            if (row == 0 && drop == 0 && rand() < RAND_MAX / RGB_DIGITAL_RAIN_DROPS) {
+            if (row == 0 && drop == 0 && rand() < RAND_MAX / RGB_MATRIX_DIGITAL_RAIN_DROPS) {
                 // top row, pixels have just fallen and we're
                 // making a new rain drop in this column
                 map[col][row] = max_intensity;
@@ -667,8 +667,8 @@ void rgb_matrix_task(void) {
 
     // Ideally we would also stop sending zeros to the LED driver PWM buffers
     // while suspended and just do a software shutdown. This is a cheap hack for now.
-    bool suspend_backlight = ((g_suspend_state && RGB_DISABLE_WHEN_USB_SUSPENDED) ||
-            (RGB_DISABLE_AFTER_TIMEOUT > 0 && g_any_key_hit > RGB_DISABLE_AFTER_TIMEOUT * 60 * 20));
+    bool suspend_backlight = ((g_suspend_state && RGB_MATRIX_DISABLE_WHEN_USB_SUSPENDED) ||
+            (RGB_MATRIX_DISABLE_AFTER_TIMEOUT > 0 && g_any_key_hit > RGB_MATRIX_DISABLE_AFTER_TIMEOUT * 60 * 20));
     uint8_t effect = suspend_backlight ? 0 : rgb_matrix_config.mode;
 
     #ifdef TRACK_PREVIOUS_EFFECT
