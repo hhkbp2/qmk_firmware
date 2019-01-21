@@ -548,47 +548,125 @@ bool process_record_quantum(keyrecord_t *record) {
     return false;
   #endif // defined(RGBLIGHT_ENABLE)
   #if defined(RGB_MATRIX_ENABLE)
-	case RGB_MATRIX_TOG:
-	  // Split keyboards need to trigger on key-up for edge-case issue
-	  #ifndef SPLIT_KEYBOARD
-	  if (record->event.pressed) {
-	  #else
-	  if (!record->event.pressed) {
-	  #endif
-	    rgb_matrix_toggle();
-	    #ifdef SPLIT_KEYBOARD
-	        RGB_DIRTY = true;
-	    #endif
-	  }
-	  return false;
-	case RGB_MATRIX_MODE_FORWARD:
-	  if (record->event.pressed) {
-	    uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
-	    if(shifted) {
-	      rgb_matrix_step_reverse();
-	    }
-	    else {
-	      rgb_matrix_step();
-	    }
-	    #ifdef SPLIT_KEYBOARD
-	        RGB_DIRTY = true;
-	    #endif
-	  }
-	  return false;
-	case RGB_MATRIX_MODE_REVERSE:
-	  if (record->event.pressed) {
-	    uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
-	    if(shifted) {
-	      rgb_matrix_step();
-	    }
-	    else {
-	      rgb_matrix_step_reverse();
-	    }
-	    #ifdef SPLIT_KEYBOARD
-	        RGB_DIRTY = true;
-	    #endif
-	  }
-	  return false;
+  case RGB_MATRIX_TOG:
+    // Split keyboards need to trigger on key-up for edge-case issue
+    #ifndef SPLIT_KEYBOARD
+    if (record->event.pressed) {
+    #else
+    if (!record->event.pressed) {
+    #endif
+      rgb_matrix_toggle();
+      #ifdef SPLIT_KEYBOARD
+          RGB_DIRTY = true;
+      #endif
+    }
+    return false;
+  case RGB_MATRIX_MODE_FORWARD:
+    if (record->event.pressed) {
+      uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+      if(shifted) {
+        rgb_matrix_step_reverse();
+      }
+      else {
+        rgb_matrix_step();
+      }
+      #ifdef SPLIT_KEYBOARD
+          RGB_DIRTY = true;
+      #endif
+    }
+    return false;
+  case RGB_MATRIX_MODE_REVERSE:
+    if (record->event.pressed) {
+      uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+      if(shifted) {
+        rgb_matrix_step();
+      }
+      else {
+        rgb_matrix_step_reverse();
+      }
+      #ifdef SPLIT_KEYBOARD
+          RGB_DIRTY = true;
+      #endif
+    }
+    return false;
+  case RGB_MATRIX_HUI:
+    // Split keyboards need to trigger on key-up for edge-case issue
+    #ifndef SPLIT_KEYBOARD
+    if (record->event.pressed) {
+    #else
+    if (!record->event.pressed) {
+    #endif
+      rgb_matrix_increase_hue();
+      #ifdef SPLIT_KEYBOARD
+          RGB_DIRTY = true;
+      #endif
+    }
+    return false;
+  case RGB_MATRIX_HUD:
+    // Split keyboards need to trigger on key-up for edge-case issue
+    #ifndef SPLIT_KEYBOARD
+    if (record->event.pressed) {
+    #else
+    if (!record->event.pressed) {
+    #endif
+      rgb_matrix_decrease_hue();
+      #ifdef SPLIT_KEYBOARD
+          RGB_DIRTY = true;
+      #endif
+    }
+    return false;
+  case RGB_MATRIX_SAI:
+    // Split keyboards need to trigger on key-up for edge-case issue
+    #ifndef SPLIT_KEYBOARD
+    if (record->event.pressed) {
+    #else
+    if (!record->event.pressed) {
+    #endif
+      rgb_matrix_increase_sat();
+      #ifdef SPLIT_KEYBOARD
+          RGB_DIRTY = true;
+      #endif
+    }
+    return false;
+  case RGB_MATRIX_SAD:
+    // Split keyboards need to trigger on key-up for edge-case issue
+    #ifndef SPLIT_KEYBOARD
+    if (record->event.pressed) {
+    #else
+    if (!record->event.pressed) {
+    #endif
+      rgb_matrix_decrease_sat();
+      #ifdef SPLIT_KEYBOARD
+          RGB_DIRTY = true;
+      #endif
+    }
+    return false;
+  case RGB_MATRIX_VAI:
+    // Split keyboards need to trigger on key-up for edge-case issue
+    #ifndef SPLIT_KEYBOARD
+    if (record->event.pressed) {
+    #else
+    if (!record->event.pressed) {
+    #endif
+      rgb_matrix_increase_val();
+      #ifdef SPLIT_KEYBOARD
+          RGB_DIRTY = true;
+      #endif
+    }
+    return false;
+  case RGB_MATRIX_VAD:
+    // Split keyboards need to trigger on key-up for edge-case issue
+    #ifndef SPLIT_KEYBOARD
+    if (record->event.pressed) {
+    #else
+    if (!record->event.pressed) {
+    #endif
+      rgb_matrix_decrease_val();
+      #ifdef SPLIT_KEYBOARD
+          RGB_DIRTY = true;
+      #endif
+    }
+    return false;
 	// TODO: Add more handling for other RGB Matrix keycodes
   #endif // defined(RGB_MATRIX_ENABLE)
     #ifdef PROTOCOL_LUFA
