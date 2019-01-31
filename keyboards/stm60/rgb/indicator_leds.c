@@ -24,6 +24,9 @@ void indicator_leds_init(void) {
   palClearLine(LINE_I_LED7);
   palSetLineMode(LINE_I_LED8, PAL_MODE_OUTPUT_PUSHPULL);
   palClearLine(LINE_I_LED8);
+
+	// turn on led for default layer
+	indicator_leds_set(3, 1);
 }
 
 void indicator_leds_set(uint32_t index, bool on)
@@ -67,7 +70,7 @@ void led_set_kb(uint8_t usb_led)
   // led 3
   indicator_leds_set(2, host_keyboard_leds() & (1 << USB_LED_SCROLL_LOCK));
   // led 4
-  indicator_leds_set(3, layer_state & (1 << 0));
+  indicator_leds_set(3, (layer_state & (1 << 0)) ? 0 : 1);
   // led 5
   indicator_leds_set(4, layer_state & (1 << 1));
   // led 6
