@@ -23,7 +23,7 @@ MCU_STARTUP = stm32f4xx
 
 # Board: it should exist either in <chibios>/os/hal/boards/
 #  or <this_dir>/boards
-BOARD = GENERIC_STM32_F411xE
+BOARD = GENERIC_STM32_F411XE
 
 # Cortex version
 MCU  = cortex-m4
