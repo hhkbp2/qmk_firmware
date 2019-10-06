@@ -139,6 +139,23 @@ __attribute__ ((weak))
 void matrix_setup(void) {
 }
 
+/** \brief keyboard_post_init_user
+ *
+ * FIXME: needs doc
+ */
+__attribute__ ((weak))
+void keyboard_post_init_user() {}
+
+/** \brief keyboard_post_init_kb
+ *
+ * FIXME: needs doc
+ */
+
+__attribute__ ((weak))
+void keyboard_post_init_kb(void) {
+  keyboard_post_init_user();
+}
+
 /** \brief keyboard_setup
  *
  * FIXME: needs doc
@@ -199,6 +216,7 @@ void keyboard_init(void) {
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
 #endif
+		keyboard_post_init_kb(); /* Always keep this last */
 }
 
 /** \brief Keyboard task: Do keyboard routine jobs

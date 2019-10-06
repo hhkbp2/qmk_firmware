@@ -1,5 +1,11 @@
 #include "stm60.h"
 
+void keyboard_post_init_user(void) {
+	rgblight_enable();
+	rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
+	// rgb_matrix_disable();	
+}
+
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Layer 0: qwerty */

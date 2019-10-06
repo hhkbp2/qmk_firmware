@@ -68,6 +68,9 @@ void keyboard_task(void);
 /* it runs when host LED status is updated */
 void keyboard_set_leds(uint8_t leds);
 
+void keyboard_post_init_kb(void);
+void keyboard_post_init_user(void);
+
 #ifdef __cplusplus
 }
 #endif
